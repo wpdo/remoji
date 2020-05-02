@@ -23,9 +23,8 @@ class Reaction extends Instance
 		$emoji = $_POST[ 'emoji' ];
 		$remoji_id = (int) $_POST[ 'remoji_id' ];
 		$remoji_type = $_POST[ 'remoji_type' ];
-		debug( var_export( in_array( $remoji_type, array( 'post', 'comment' ) ), true ) );
 		// Security check
-		if ( ! $emoji || ! ( $img = GUI::get_instance()->emoji( $emoji ) ) ) {
+		if ( ! $emoji || preg_match( '/[^a-z0-9_]/', $emoji ) || ! ( $img = GUI::get_instance()->emoji( $emoji ) ) ) {
 			return REST::err( 'invalid_emoji' );
 		}
 
